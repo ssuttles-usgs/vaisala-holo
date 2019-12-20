@@ -34,11 +34,11 @@ def fetch_api_data(params):
 
     return lines
 
-# if len(sys.argv) == 1:
-#     site = 'gri'
-# else:
-#     site = sys.argv[1]
-site = 'gri'
+if len(sys.argv) == 1:
+    site = 'gri'
+else:
+    site = sys.argv[1]
+
 print(site)
 
 deviceid = {'gri': '511833'}
@@ -85,9 +85,6 @@ ds.attrs['naming_authority'] = 'gov.usgs.cmgp'
 ds.attrs['original_folder'] = 'wind'
 ds.attrs['featureType'] = 'timeSeries'
 ds.attrs['cdm_timeseries_variables'] = 'feature_type_instance, latitude, longitude'
-
-ds.attrs['Conventions'] = 'CF-1.6'
-ds.attrs['institution'] = 'U.S. Geological Survey'
 
 def add_standard_attrs(ds):
     ds.attrs['Conventions'] = 'CF-1.6'
