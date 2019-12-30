@@ -105,7 +105,7 @@ def add_standard_attrs(ds):
     ds['Ta'].attrs['units'] = 'degree_C'
 
     ds['Ua'].attrs['standard_name'] = 'relative_humidity'
-    ds['Ua'].attrs['units'] = '1'
+    ds['Ua'].attrs['units'] = 'percent'
 
     ds['Rc'].attrs['standard_name'] = 'rainfall_amount'
     ds['Rc'].attrs['units'] = 'mm'
