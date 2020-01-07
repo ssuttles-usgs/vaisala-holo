@@ -76,7 +76,8 @@ dsnew['time'] = pd.DatetimeIndex(dsnew['time'].values)
 ds = xr.merge([dsold, dsnew])
 
 for k in ds.data_vars:
-    ds[k][ds[k] == -9999] = np.nan
+    if 'time' in ds[k].dims:
+        ds[k][ds[k] == -9999] = np.nan
 
 ds = ds.drop('sample')
 
