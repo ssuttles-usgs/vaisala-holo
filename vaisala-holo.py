@@ -52,8 +52,8 @@ params['deviceid'] = deviceid[site]
 
 try:
     dsold = xr.load_dataset(fildir + site + '.nc')
-    params['timestart'] = str((ds.time[-1].astype('uint64')/1e9).astype('int').values)
-    print('starting from incremental holo file. First burst', ds['time'][0].values,  'last burst', ds['time'][-1].values)
+    params['timestart'] = str((dsold.time[-1].astype('uint64')/1e9).astype('int').values)
+    print('starting from incremental holo file. First burst', dsold['time'][0].values,  'last burst', dsold['time'][-1].values)
 except FileNotFoundError:
     dsold = xr.Dataset()
     params['timestart'] = timestart[site]
