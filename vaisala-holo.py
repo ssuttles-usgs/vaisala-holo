@@ -49,22 +49,31 @@ params = {}
 with open('hologram.apikey') as f:
     params['apikey'] = f.read().strip()
 params['deviceid'] = deviceid[site]
-params['timestart'] = timestart[site]
+
+try:
+    dsold = xr.load_dataset(fildir + site + '.nc')
+    params['timestart'] = str((ds.time[-1].astype('uint64')/1e9).astype('int').values)
+    print('starting from incremental holo file. First burst', ds['time'][0].values,  'last burst', ds['time'][-1].values)
+except FileNotFoundError:
+    dsold = xr.Dataset()
+    params['timestart'] = timestart[site]
+    print('starting from scratch with holo')
+
+print("params['timestart']", params['timestart'])
 
 lines = fetch_api_data(params)
 # %%
 df = pd.DataFrame([dict(zip(l[0::2], l[1::2])) for l in lines])
 df['time'] = pd.DatetimeIndex(df['time'])
 df.set_index('time', inplace=True)
-df.columns
 
 for k in df.columns:
     df[k] = pd.to_numeric(df[k])
 
-ds = df.to_xarray().sortby('time')
-# ds['time'] = pd.DatetimeIndex(ds['time'].values)
-ds['time'] = pd.DatetimeIndex(ds['time'].values)
+dsnew = df.to_xarray().sortby('time')
+dsnew['time'] = pd.DatetimeIndex(ds['time'].values)
 
+ds = xr.merge([dsold, dsnew])
 
 for k in ds.data_vars:
     ds[k][ds[k] == -9999] = np.nan
