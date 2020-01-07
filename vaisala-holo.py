@@ -71,7 +71,7 @@ for k in df.columns:
     df[k] = pd.to_numeric(df[k])
 
 dsnew = df.to_xarray().sortby('time')
-dsnew['time'] = pd.DatetimeIndex(ds['time'].values)
+dsnew['time'] = pd.DatetimeIndex(dsnew['time'].values)
 
 ds = xr.merge([dsold, dsnew])
 
