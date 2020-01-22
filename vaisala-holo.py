@@ -42,8 +42,9 @@ else:
 print(site)
 
 deviceid = {'gri': '511833'}
-
-timestart = {'gri': 1576108800}
+timestart = {'gri': 1579651200}
+latlon = {'gri': {'lat': 38.117250, 'lon': -122.039833}}
+title = {'gri': 'Grizzly Bay Meteorological Station'}
 
 params = {}
 with open('hologram.apikey') as f:
@@ -81,11 +82,11 @@ for k in ds.data_vars:
 
 ds = ds.drop('sample')
 
-ds.attrs['title'] = 'Test Meteorological Station. PROVISIONAL DATA SUBJECT TO REVISION.'
+ds.attrs['title'] = title + '. PROVISIONAL DATA SUBJECT TO REVISION.'
 ds.attrs['history'] = 'Generated using vaisala-holo.py'
 
-ds['latitude'] = xr.DataArray([36.959510], dims='latitude')
-ds['longitude'] = xr.DataArray([-122.057024], dims='longitude')
+ds['latitude'] = xr.DataArray([latlon[site]['lat']], dims='latitude')
+ds['longitude'] = xr.DataArray([latlon[site]['lon']], dims='longitude')
 
 ds['feature_type_instance'] = xr.DataArray(site)
 ds['feature_type_instance'].attrs['long_name'] = 'station code'
@@ -95,6 +96,9 @@ ds.attrs['naming_authority'] = 'gov.usgs.cmgp'
 ds.attrs['original_folder'] = 'wind'
 ds.attrs['featureType'] = 'timeSeries'
 ds.attrs['cdm_timeseries_variables'] = 'feature_type_instance, latitude, longitude'
+
+if site == 'gri':
+    ds.attrs['elevation'] = 'Sensor elevation 6.81 m NAVD88'
 
 def add_standard_attrs(ds):
     ds.attrs['Conventions'] = 'CF-1.6'
