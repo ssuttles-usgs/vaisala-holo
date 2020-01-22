@@ -150,9 +150,12 @@ ds = ds.squeeze()
 
 # %%
 # make a backup
-timestr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+now = datetime.datetime.now()
+timestr = now.strftime('%Y%m%d%H%M%S')
+hour = now.strftime('%H')
 try:
-    shutil.copy(fildir + site + '.nc', fildir + '../wind_bak/' + site + timestr + '.nc')
+    if hour == '00':
+        shutil.copy(fildir + site + '.nc', fildir + '../wind_bak/' + site + timestr + '.nc')
 except:
     print('Could not make backup. This may occur on first run')
 ds.to_netcdf(fildir + site + '.nc', encoding={'time': {'dtype': 'int32'},
