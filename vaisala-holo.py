@@ -163,4 +163,5 @@ try:
 except:
     print('Could not make backup. This may occur on first run')
 ds.to_netcdf(fildir + site + '.nc', encoding={'time': {'dtype': 'int32'},
-                                              'signalpct': {'dtype': 'int32'}})
+                                              'signalpct': {'dtype': 'int32'},
+                                              'Dm': {'dtype': 'int32'}})
