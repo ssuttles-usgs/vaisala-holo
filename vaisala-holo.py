@@ -82,7 +82,7 @@ for k in ds.data_vars:
 
 ds = ds.drop('sample')
 
-ds.attrs['title'] = title + '. PROVISIONAL DATA SUBJECT TO REVISION.'
+ds.attrs['title'] = title[site] + '. PROVISIONAL DATA SUBJECT TO REVISION.'
 ds.attrs['history'] = 'Generated using vaisala-holo.py'
 
 ds['latitude'] = xr.DataArray([latlon[site]['lat']], dims='latitude')
