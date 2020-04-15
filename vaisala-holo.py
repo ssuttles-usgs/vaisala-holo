@@ -41,10 +41,14 @@ else:
 
 print(site)
 
-deviceid = {'gri': '511833'}
-timestart = {'gri': 1579651200}
-latlon = {'gri': {'lat': 38.117250, 'lon': -122.039833}}
-title = {'gri': 'Grizzly Bay Meteorological Station'}
+deviceid = {'gri': '511833',
+            'bel': '585918'}
+timestart = {'gri': 1579651200,
+             'bel': 1586962800}
+latlon = {'gri': {'lat': 38.117250, 'lon': -122.039833},
+          'bel': {'lat': 48.760415, 'lon': -122.521977}}
+title = {'gri': 'Grizzly Bay Meteorological Station',
+         'bel': 'Bellingham Bay Meteorological Station'}
 
 params = {}
 with open('hologram.apikey') as f:
