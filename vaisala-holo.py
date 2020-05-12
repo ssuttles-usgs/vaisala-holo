@@ -93,7 +93,7 @@ if site == 'bel':
     # MN = magnetic north
     # a wind from 0 degrees magnetic would register as 15 on our sensor
     # so subtract 15
-    ds['Dm'] = (ds['Dm'] - 15) % 360
+    dsall['Dm'] = (dsall['Dm'] - 15) % 360
 
 ds = xr.merge([dsold, dsnew])
 
