@@ -78,6 +78,23 @@ for k in df.columns:
 dsnew = df.to_xarray().sortby('time')
 dsnew['time'] = pd.DatetimeIndex(dsnew['time'].values)
 
+# need to adjust direction for Bellingham before merging so we don't do it multiple times
+if site == 'bel':
+    # wind sensor was installed 15 degrees west of magnetic north.
+    # i.e. sensor is pointing at 345
+    #
+    #SN   MN
+    # \    |
+    #  \ 15|
+    #   \  |
+    #    \ |
+    #     \|
+    # SN = sensor north
+    # MN = magnetic north
+    # a wind from 0 degrees magnetic would register as 15 on our sensor
+    # so subtract 15
+    ds['Dm'] = (ds['Dm'] - 15) % 360
+
 ds = xr.merge([dsold, dsnew])
 
 for k in ds.data_vars:
