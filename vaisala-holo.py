@@ -14,7 +14,7 @@ import os
 
 # %%
 
-fildir = '/sand/usgs/users/dnowacki/wind/'
+fildir = '/sand/usgs/users/ssuttles/wind/'
 
 def fetch_api_data(params):
 
@@ -35,19 +35,19 @@ def fetch_api_data(params):
     return lines
 
 if len(sys.argv) == 1:
-    site = 'gri'
+    site = 'hmb'
 else:
     site = sys.argv[1]
 
 print(site)
 
-deviceid = {'gri': '511833',
+deviceid = {'hmb': '734540',
             'bel': '585918'}
-timestart = {'gri': 1579651200,
+timestart = {'hmb': 1594740000,
              'bel': 1586962800}
-latlon = {'gri': {'lat': 38.117250, 'lon': -122.039833},
+latlon = {'hmb': {'lat': 42, 'lon': -70},
           'bel': {'lat': 48.760415, 'lon': -122.521977}}
-title = {'gri': 'Grizzly Bay Meteorological Station',
+title = {'hmb': 'Head of Meadow Buoy Wind Station',
          'bel': 'Bellingham Bay Meteorological Station'}
 
 params = {}
